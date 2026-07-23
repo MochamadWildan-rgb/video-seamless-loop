@@ -1,0 +1,39 @@
+# Nama workflow yang akan muncul di tab Actions GitHub
+name: Render Remotion Video
+
+on:
+  # Memungkinkan Anda menjalankan workflow ini secara manual dari tab Actions
+  workflow_dispatch:
+
+jobs:
+  render:
+    name: Render video
+    runs-on: ubuntu-latest
+    # Menambahkan izin untuk menulis ke Actions, diperlukan untuk beberapa fitur Remotion
+    permissions:
+      contents: read
+      actions: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # Action resmi dari Remotion untuk menyiapkan lingkungan build.
+      # Ini akan mengurus instalasi Node.js, cache, dan dependensi browser.
+      - name: Set up Remotion
+        uses: remotion-dev/github-actions/setup@v1
+
+      - name: Install dependencies
+        run: npm install
+
+      # Ganti 'src/index.ts' jika file entri Remotion Anda berbeda.
+      # 'TechBackground' adalah ID komposisi Anda.
+      # 'out/video.mp4' adalah file output.
+      - name: Render video
+        run: npx remotion render src/index.ts TechBackground out/video.mp4
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: rendered-video
+          path: out/video.mp4
