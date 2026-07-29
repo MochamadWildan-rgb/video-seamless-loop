@@ -4,6 +4,15 @@ name: Render Remotion Video
 on:
   # Memungkinkan Anda menjalankan workflow ini secara manual dari tab Actions
   workflow_dispatch:
+    inputs:
+      compositionId:
+        description: 'ID Komposisi yang akan dirender'
+        required: true
+        default: 'CubesLayer'
+      crf:
+        description: 'Kualitas CRF (0-51, lebih rendah lebih baik)'
+        required: true
+        default: '23'
 
 jobs:
   render:
@@ -30,7 +39,7 @@ jobs:
       # 'TechBackground' adalah ID komposisi Anda.
       # 'out/video.mp4' adalah file output.
       - name: Render video
-        run: npx remotion render src/index.ts CubesLayer out/video.mp4
+        run: npx remotion render src/index.ts ${{ github.event.inputs.compositionId }} out/video.mp4 --crf=${{ github.event.inputs.crf }}
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
