@@ -1,12 +1,12 @@
 import './style.css';
 import { Composition } from 'remotion';
-import { TechBackground } from './compositions/TechBackground/index';
+import { TechBackground } from './compositions/TechBackground';
 
 export const RemotionRoot: React.FC = () => {
   return (
     <>
       <Composition
-        id="TechBackground"
+        id="CubesLayer"
         component={TechBackground}
         durationInFrames={600}
         fps={60}

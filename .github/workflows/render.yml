@@ -21,7 +21,7 @@ jobs:
       # Action resmi dari Remotion untuk menyiapkan lingkungan build.
       # Ini akan mengurus instalasi Node.js, cache, dan dependensi browser.
       - name: Set up Remotion
-        uses: remotion-dev/github-actions/setup@v1
+        uses: remotion-dev/github-actions/setup@v1.0.1
 
       - name: Install dependencies
         run: npm install
@@ -30,7 +30,7 @@ jobs:
       # 'TechBackground' adalah ID komposisi Anda.
       # 'out/video.mp4' adalah file output.
       - name: Render video
-        run: npx remotion render src/index.ts TechBackground out/video.mp4
+        run: npx remotion render src/index.ts CubesLayer out/video.mp4
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
